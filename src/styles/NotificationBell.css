@@ -1,0 +1,26 @@
+.notification-bell {
+  position: relative;
+  font-size: 1.5rem;
+  color: var(--text-muted-color);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.notification-bell:hover {
+  color: white;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  background-color: #e74c3c;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 0.7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
