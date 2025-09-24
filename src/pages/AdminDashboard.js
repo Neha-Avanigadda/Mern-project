@@ -1,5 +1,5 @@
 import React from 'react';
-import './AdminDashboard.css'; // Create this new CSS file
+import '../styles/AdminDashboard.css'; // Create this new CSS file
 import { FaPlus, FaPen, FaTrash } from 'react-icons/fa';
 
 const AdminDashboard = () => {

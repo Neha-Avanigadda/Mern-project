@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getBookById } from '../services/mockApi';
 import { FaArrowLeft } from 'react-icons/fa';
-import './BookDetails.css'; // Create this new CSS file
+import '../styles/BookDetails.css'; // Create this new CSS file
 
 const BookDetails = () => {
   const [book, setBook] = useState(null);

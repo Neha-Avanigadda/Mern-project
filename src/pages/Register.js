@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react"; // Removed unused 'useContext' import
 import {
   Container,
   TextField,
@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff, PersonAdd } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { useAuth } from '../context/AuthContext'; // You already have the correct import here
 import "../styles/Register.css";
 
 export default function Register() {
@@ -26,7 +26,8 @@ export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const { register } = useContext(AuthContext);
+  // FIX: Call the useAuth() hook directly to get the context value.
+  const { register } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -57,6 +58,7 @@ export default function Register() {
         </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
+            {/* First Name */}
             <Grid item xs={12} sm={6}>
               <TextField
                 label="First Name"
@@ -67,6 +69,7 @@ export default function Register() {
                 onChange={handleChange}
               />
             </Grid>
+            {/* Last Name */}
             <Grid item xs={12} sm={6}>
               <TextField
                 label="Last Name"
@@ -77,6 +80,7 @@ export default function Register() {
                 onChange={handleChange}
               />
             </Grid>
+            {/* Email */}
             <Grid item xs={12}>
               <TextField
                 label="Email Address"
@@ -88,6 +92,7 @@ export default function Register() {
                 onChange={handleChange}
               />
             </Grid>
+            {/* Password */}
             <Grid item xs={12}>
               <TextField
                 label="Password"
@@ -108,6 +113,7 @@ export default function Register() {
                 }}
               />
             </Grid>
+            {/* Confirm Password */}
             <Grid item xs={12}>
               <TextField
                 label="Confirm Password"
@@ -121,9 +127,15 @@ export default function Register() {
                   endAdornment: (
                     <InputAdornment position="end">
                       <IconButton
-                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        onClick={() =>
+                          setShowConfirmPassword(!showConfirmPassword)
+                        }
                       >
-                        {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                        {showConfirmPassword ? (
+                          <VisibilityOff />
+                        ) : (
+                          <Visibility />
+                        )}
                       </IconButton>
                     </InputAdornment>
                   ),

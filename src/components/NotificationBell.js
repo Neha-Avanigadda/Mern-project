@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaBell } from 'react-icons/fa';
-import './NotificationBell.css'; // Create this new CSS file
+import '../styles/NotificationBell.css'; // Create this new CSS file
 
 const NotificationBell = ({ count }) => {
   return (

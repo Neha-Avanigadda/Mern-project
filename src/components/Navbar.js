@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import NotificationBell from './NotificationBell';
-import './Navbar.css'; // We will create this file
+import '../styles/Navbar.css'; // We will create this file
 
 const Navbar = () => {
   const { user, logout } = useAuth();

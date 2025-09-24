@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { IoChatbubbles, IoClose, IoSend } from 'react-icons/io5';
-import './Chatbot.css'; // Create this file
+import '../styles/Chatbot.css'
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
