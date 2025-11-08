@@ -1,9 +1,9 @@
 import React from 'react';
-import '../styles/AdminDashboard.css'; // Create this new CSS file
+import '../styles/AdminDashboard.css'; 
 import { FaPlus, FaPen, FaTrash } from 'react-icons/fa';
 
 const AdminDashboard = () => {
-  // Mock data for demonstration
+  
   const books = [
     { id: 1, title: 'Quantum Computing Explained', author: 'Dr. Evelyn Reed' },
     { id: 2, title: 'The Martian', author: 'Andy Weir' },

@@ -4,8 +4,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import '../styles/Login.css'; // Use shared style
 
 const Login = () => {
-  const [email, setEmail] = useState('member@library.com');
-  const [password, setPassword] = useState('member123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { login, loading } = useAuth();
   const navigate = useNavigate();
@@ -15,9 +15,9 @@ const Login = () => {
     setError('');
     try {
       await login(email, password);
-      navigate('/dashboard');
+      navigate('/');
     } catch (err) {
-      setError('Failed to log in. Please check your credentials.');
+      setError(err.message || 'Failed to log in. Please check your credentials.');
     }
   };
 

@@ -7,7 +7,7 @@ const Footer = () => {
     <footer className="site-footer">
       <div className="container">
         <div className="footer-content">
-          <p>&copy; {new Date().getFullYear()} E-Library. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} BookNexus. All rights reserved.</p>
           <div className="social-links">
             {/* Replace # with your actual social media links */}
             <a href="https://twitter.com/yourprofile" target="_blank" rel="noopener noreferrer">

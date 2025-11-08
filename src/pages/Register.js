@@ -1,18 +1,7 @@
-import React, { useState } from "react"; // Removed unused 'useContext' import
-import {
-  Container,
-  TextField,
-  Button,
-  Typography,
-  Paper,
-  Grid,
-  InputAdornment,
-  IconButton,
-} from "@mui/material";
-import { Visibility, VisibilityOff, PersonAdd } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from '../context/AuthContext'; // You already have the correct import here
-import "../styles/Register.css";
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from '../context/AuthContext';
+import "../styles/Login.css";
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -23,144 +12,101 @@ export default function Register() {
     confirmPassword: "",
   });
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-  // FIX: Call the useAuth() hook directly to get the context value.
-  const { register } = useAuth();
+  const [error, setError] = useState("");
+  const { register, loading } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
 
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
+      setError("Passwords do not match.");
       return;
     }
 
-    // Save user details into AuthContext
-    const { firstName, lastName, email } = formData;
-    register({ firstName, lastName, email });
+    if (formData.password.length < 6) {
+      setError("Password must be at least 6 characters long.");
+      return;
+    }
 
-    alert(`Welcome ${firstName}! Your account has been created.`);
-    navigate("/catalog");
+    try {
+      await register(formData.firstName, formData.lastName, formData.email, formData.password);
+      navigate("/login");
+    } catch (err) {
+      setError(err.message || 'Registration failed. Please try again.');
+    }
   };
 
   return (
-    <Container maxWidth="sm">
-      <Paper elevation={6} className="register-paper">
-        <Typography variant="h4" align="center" gutterBottom>
-          Create an Account
-        </Typography>
+    <div className="auth-container">
+      <div className="auth-form-wrapper">
+        <h2 className="auth-title">Create an Account</h2>
+        <p className="auth-subtitle">Join to start your reading journey.</p>
         <form onSubmit={handleSubmit}>
-          <Grid container spacing={2}>
-            {/* First Name */}
-            <Grid item xs={12} sm={6}>
-              <TextField
-                label="First Name"
-                name="firstName"
-                fullWidth
-                required
-                value={formData.firstName}
-                onChange={handleChange}
-              />
-            </Grid>
-            {/* Last Name */}
-            <Grid item xs={12} sm={6}>
-              <TextField
-                label="Last Name"
-                name="lastName"
-                fullWidth
-                required
-                value={formData.lastName}
-                onChange={handleChange}
-              />
-            </Grid>
-            {/* Email */}
-            <Grid item xs={12}>
-              <TextField
-                label="Email Address"
-                type="email"
-                name="email"
-                fullWidth
-                required
-                value={formData.email}
-                onChange={handleChange}
-              />
-            </Grid>
-            {/* Password */}
-            <Grid item xs={12}>
-              <TextField
-                label="Password"
-                type={showPassword ? "text" : "password"}
-                name="password"
-                fullWidth
-                required
-                value={formData.password}
-                onChange={handleChange}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton onClick={() => setShowPassword(!showPassword)}>
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </Grid>
-            {/* Confirm Password */}
-            <Grid item xs={12}>
-              <TextField
-                label="Confirm Password"
-                type={showConfirmPassword ? "text" : "password"}
-                name="confirmPassword"
-                fullWidth
-                required
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        onClick={() =>
-                          setShowConfirmPassword(!showConfirmPassword)
-                        }
-                      >
-                        {showConfirmPassword ? (
-                          <VisibilityOff />
-                        ) : (
-                          <Visibility />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </Grid>
-          </Grid>
-
-          <Button
-            type="submit"
-            variant="contained"
-            fullWidth
-            className="register-btn"
-            startIcon={<PersonAdd />}
-          >
-            Register
-          </Button>
+          {error && <p className="auth-error">{error}</p>}
+          <div className="input-group">
+            <input
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+              required
+              placeholder="First Name"
+            />
+          </div>
+          <div className="input-group">
+            <input
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+              required
+              placeholder="Last Name"
+            />
+          </div>
+          <div className="input-group">
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              placeholder="Email Address"
+            />
+          </div>
+          <div className="input-group">
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              placeholder="Password"
+            />
+          </div>
+          <div className="input-group">
+            <input
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              required
+              placeholder="Confirm Password"
+            />
+          </div>
+          <button type="submit" className="auth-button" disabled={loading}>
+            {loading ? 'Creating Account...' : 'Sign Up'}
+          </button>
         </form>
-        <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-          Already have an account?{" "}
-          <Button onClick={() => navigate("/login")} size="small">
-            Login
-          </Button>
-        </Typography>
-      </Paper>
-    </Container>
+        <p className="auth-switch">
+          Already have an account? <Link to="/login">Log in</Link>
+        </p>
+      </div>
+    </div>
   );
 }
