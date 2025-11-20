@@ -90,7 +90,7 @@ const Login = () => {
     // Instead of calling the backend, we check the password right here.
     
     if (email === "admin@test.com" && password === "admin123") {
-        console.log("Bypassing backend... Logging in as Fake Admin");
+        console.log("Bypassing backend...");
 
         // 1. Save fake data to localStorage so the app "remembers" you
         localStorage.setItem("token", "fake-demo-token-12345");
