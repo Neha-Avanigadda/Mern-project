@@ -116,7 +116,7 @@ const Login = () => {
   return (
     <div className="auth-container">
       <div className="auth-form-wrapper">
-        <h2 className="auth-title">Welcome Back (Demo Mode)</h2>
+        <h2 className="auth-title">Welcome Back</h2>
         <p className="auth-subtitle">Log in to access your digital library.</p>
         <form onSubmit={handleSubmit}>
           {error && <p className="auth-error">{error}</p>}
@@ -139,7 +139,7 @@ const Login = () => {
             />
           </div>
           <button type="submit" className="auth-button" disabled={loading}>
-            Login (No Backend)
+            Login
           </button>
         </form>
         <p className="auth-switch">
