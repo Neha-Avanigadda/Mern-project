@@ -1,0 +1,9 @@
+[build]
+  # Your project is in the root, so we use "/"
+  base = "/"
+  
+  # This prevents warnings from failing the build (common in React)
+  command = "CI=false npm run build"
+  
+  # Create React App always outputs to the "build" folder
+  publish = "build"
